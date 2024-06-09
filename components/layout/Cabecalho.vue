@@ -5,8 +5,13 @@
     </v-app-bar>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject, watch } from 'vue'
+import {EventBusFactory, eventNames} from '../../infra/eventBus'
 
-const mostrarBarraLateral = ref(false)
+const eventBus = EventBusFactory.getEventBus();
+const mostrarBarraLateral = ref(true);
+watch(mostrarBarraLateral, (_, novoValor) => {
+    eventBus.publish(eventNames.mostrarBarraLateral, novoValor)
+})
 
 </script>

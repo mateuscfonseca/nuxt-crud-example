@@ -17,8 +17,14 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import {EventBusFactory, eventNames} from '../../infra/eventBus'
 
-const mostrarBarraLateral = ref(true)
+const eventBus = EventBusFactory.getEventBus();
+eventBus.subscribe(eventNames.mostrarBarraLateral, (novoValor:boolean) => {
+  mostrarBarraLateral.value = novoValor
+})
+
+const mostrarBarraLateral = ref(false)
 
 interface MenuItem {
   title: string,
